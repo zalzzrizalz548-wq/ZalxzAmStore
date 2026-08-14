@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zalzz Store - Official Digital Goods</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(23, 31, 51, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.35);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --discount-color: #ef4444;
+            --success-color: #10b981;
+            --star-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Navbar */
+        header {
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .brand i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .brand span {
+            color: var(--accent-color);
+        }
+
+        .badge-verified {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        /* Hero Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            flex: 1;
+        }
+
+        .hero-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 30px -10px var(--accent-glow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .stock-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stock-tag .dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success-color);
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .product-type {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-features li i {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        /* Pricing Area */
+        .price-container {
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .original-price {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+        }
+
+        .current-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .save-badge {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--discount-color);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Button */
+        .btn-buy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.85rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-buy:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .reviews-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reviews-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .reviews-stats i {
+            color: var(--star-color);
+        }
+
+        /* Review Form */
+        .comment-form {
+            background: rgba(11, 15, 25, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .comment-form h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-color);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        /* Review List */
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            transition: background 0.2s;
+        }
+
+        .review-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .verified-buyer {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        .review-time {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .stars {
+            color: var(--star-color);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            color: #d1d5db;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .item-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Adjustment */
+        @media (max-width: 640px) {
+            .hero-title h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 2rem 1rem;
+            }
+            .form-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+            <div class="brand">
+                <i class="fa-solid fa-bolt"></i>
+                Zalzz <span>Store</span>
+            </div>
+            <div class="badge-verified">
+                <i class="fa-solid fa-shield-halved"></i> Terpercaya
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="hero-title">
+            <h1>Alight Motion Premium</h1>
+            <p>Akses fitur premium tanpa watermark dengan pilihan Akun Private & Sharing resmi.</p>
+        </div>
+
+        <div class="products-grid">
+
+            <!-- Produk 1: AM PREM PRIVATE -->
+            <div class="product-card" style="border-color: rgba(139, 92, 246, 0.3);">
+                <div>
+                    <div class="card-header">
+                        <div class="product-icon" style="background: rgba(139, 92, 246, 0.15); color: #a855f7; border-color: rgba(139, 92, 246, 0.3);">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <div class="stock-tag">
+                            <span class="dot"></span> Stok: 12 Pcs
+                        </div>
+                    </div>
+                    <span class="product-type" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border-color: rgba(236, 72, 153, 0.3);">Best Choice</span>
+                    <h2 class="product-title">AM PREM PRIVATE</h2>
+                    <ul class="product-features">
+                        <li><i class="fa-solid fa-check"></i> Gunakan Email Kamu Sendiri</li>
+                        <li><i class="fa-solid fa-check"></i> Lebih Aman & Terprivasi</li>
+                        <li><i class="fa-solid fa-check"></i> Tanpa Gangguan Pengguna Lain</li>
+                        <li><i class="fa-solid fa-check"></i> Tanpa Watermark & Full Effect</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="price-container">
+                        <div class="original-price">Rp 60.000</div>
+                        <div class="current-price">
+                            Rp 10.000
+                            <span class="save-badge">Hemat 83%</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/6283872878413?text=Halo%20Zalzz%20Store,%20saya%20ingin%20membeli%20produk%20AM%20PREM%20PRIVATE%20(Pakai%20Email%20Sendiri)%20seharga%20Rp%2010.000." target="_blank" class="btn-buy" style="background: #8b5cf6;">
+                        <i class="fa-brands fa-whatsapp"></i> Beli Sekarang
+                    </a>
+                </div>
+            </div>
+
+            <!-- Produk 2: AM PREM SHARING -->
+            <div class="product-card">
+                <div>
+                    <div class="card-header">
+                        <div class="product-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stock-tag">
+                            <span class="dot"></span> Stok: 20 Pcs
+                        </div>
+                    </div>
+                    <span class="product-type">Hemat Banget</span>
+                    <h2 class="product-title">AM PREM SHARING</h2>
+                    <ul class="product-features">
+                        <li><i class="fa-solid fa-check"></i> Gunakan Email dari Penjual</li>
+                        <li><i class="fa-solid fa-check"></i> Bisa Mengakses Fitur Premium</li>
+                        <li><i class="fa-solid fa-check"></i> Harga Super Murah & Ekonomis</li>
+                        <li><i class="fa-solid fa-check"></i> Export Tanpa Watermark</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="price-container">
+                        <div class="original-price">Rp 30.000</div>
+                        <div class="current-price">
+                            Rp 5.000
+                            <span class="save-badge">Hemat 83%</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/6283872878413?text=Halo%20Zalzz%20Store,%20saya%20ingin%20membeli%20produk%20AM%20PREM%20SHARING%20(Email%20dari%20Penjual)%20seharga%20Rp%205.000." target="_blank" class="btn-buy">
+                        <i class="fa-brands fa-whatsapp"></i> Beli Sekarang
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Section Testimoni & Komentar -->
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h2><i class="fa-solid fa-comments" style="color: var(--accent-color);"></i> Kata Mereka</h2>
+                <div class="reviews-stats">
+                    <i class="fa-solid fa-star"></i> 4.9 / 5.0 (128 Ulasan)
+                </div>
+            </div>
+
+            <!-- Form Tulis Komentar -->
+            <div class="comment-form">
+                <h3>Tulis Ulasan Kamu</h3>
+                <form id="reviewForm" onsubmit="addComment(event)">
+                    <div class="form-group">
+                        <input type="text" id="username" class="form-input" placeholder="Nama / Inisial kamu..." required>
+                        <select id="productType" class="form-input" style="color: #a0aec0;" required>
+                            <option value="AM PREM PRIVATE" selected>Variasi: AM PREM PRIVATE (10k)</option>
+                            <option value="AM PREM SHARING">Variasi: AM PREM SHARING (5k)</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea id="userMessage" class="form-input" placeholder="Gimana pengalaman kamu beli di Zalzz Store? Parah worth it-nya?..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Ulasan
+                    </button>
+                </form>
+            </div>
+
+            <!-- List Komentar -->
+            <div class="reviews-list" id="reviewsList">
+
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-info">
+                            <div class="avatar" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">DA</div>
+                            <div>
+                                <div class="user-name">Dika_Editzz <i class="fa-solid fa-circle-check verified-buyer"></i></div>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-time">10 menit lalu</div>
+                    </div>
+                    <p class="review-text">Gokil bgt versi Private cuma 10rb dapet upgrade di email sendiri! Ga perlu takut ketimpa/logout, aman parah dipakenya. Menyala Zalzz Store 👑</p>
+                    <span class="item-tag">Membeli: AM PREM PRIVATE</span>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-info">
+                            <div class="avatar">RZ</div>
+                            <div>
+                                <div class="user-name">RizalFX_ <i class="fa-solid fa-circle-check verified-buyer"></i></div>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-time">35 menit lalu</div>
+                    </div>
+                    <p class="review-text">Anjay fast respon bet adminnya! Baru tranfer 5rb ga sampe 2 menit email akun sharing udh dikirim. Langsung bisa ngedit preset jj tanpa watermark bre 🔥</p>
+                    <span class="item-tag">Membeli: AM PREM SHARING</span>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-info">
+                            <div class="avatar" style="background: linear-gradient(135deg, #10b981, #3b82f6);">FJ</div>
+                            <div>
+                                <div class="user-name">Fajar_AM <i class="fa-solid fa-circle-check verified-buyer"></i></div>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-time">2 jam lalu</div>
+                    </div>
+                    <p class="review-text">Mantap private 10k worth it banget sih, emang paling nyaman kalo pake akun/email sendiri. Proses kilat ga pake lama!</p>
+                    <span class="item-tag">Membeli: AM PREM PRIVATE</span>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-info">
+                            <div class="avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">VN</div>
+                            <div>
+                                <div class="user-name">Vinaa_Preset <i class="fa-solid fa-circle-check verified-buyer"></i></div>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-time">5 jam lalu</div>
+                    </div>
+                    <p class="review-text">Admin nya ramah bgt diajarin cara login akun sharingnya ampe beres. Makasih ya zalzz store pakenya udah aktif nihh 🤩</p>
+                    <span class="item-tag">Membeli: AM PREM SHARING</span>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Zalzz Store. All rights reserved.</p>
+    </footer>
+
+    <!-- Script Tambah Komentar Interaktif -->
+    <script>
+        function addComment(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('username').value;
+            const product = document.getElementById('productType').value;
+            const message = document.getElementById('userMessage').value;
+
+            // Inisial avatar
+            const initials = name.substring(0, 2).toUpperCase();
+
+            // Template HTML Komentar Baru
+            const newReview = `
+                <div class="review-card" style="animation: fadeIn 0.5s ease-in-out;">
+                    <div class="review-user">
+                        <div class="user-info">
+                            <div class="avatar" style="background: linear-gradient(135deg, #3b82f6, #10b981);">${initials}</div>
+                            <div>
+                                <div class="user-name">${name} <i class="fa-solid fa-circle-check verified-buyer"></i></div>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-time">Baru saja</div>
+                    </div>
+                    <p class="review-text">${message}</p>
+                    <span class="item-tag">Membeli: ${product}</span>
+                </div>
+            `;
+
+            // Sisipkan di paling atas list komentar
+            const reviewsList = document.getElementById('reviewsList');
+            reviewsList.insertAdjacentHTML('afterbegin', newReview);
+
+            // Reset form
+            document.getElementById('reviewForm').reset();
+            alert('Ulasan kamu berhasil terkirim!');
+        }
+    </script>
+</body>
+</html>
+
