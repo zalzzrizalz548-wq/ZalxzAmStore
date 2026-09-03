@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zalzz Store - Official Digital Goods</title>
-    <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -631,7 +630,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
             <div class="brand">
@@ -644,14 +642,12 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
         <div class="hero-title">
             <h1>Alight Motion Premium</h1>
-            <p>Akses fitur premium tanpa watermark dengan pilihan Akun Private & Sharing resmi.</p>
+            <p>Akses fitur premium tanpa watermark dengan pilihan Akun Private, Sharing, & Akses Reseller resmi.</p>
         </div>
 
-        <!-- Single Action Button -->
         <div class="hero-action">
             <button class="btn-main-buy" onclick="openOrderModal()">
                 <i class="fa-solid fa-cart-shopping"></i> Beli Sekarang
@@ -660,7 +656,6 @@
 
         <div class="products-grid">
 
-            <!-- Produk 1: AM PREM PRIVATE -->
             <div class="product-card" style="border-color: rgba(139, 92, 246, 0.3);">
                 <div>
                     <div class="card-header">
@@ -693,7 +688,6 @@
                 </div>
             </div>
 
-            <!-- Produk 2: AM PREM SHARING -->
             <div class="product-card">
                 <div>
                     <div class="card-header">
@@ -726,9 +720,40 @@
                 </div>
             </div>
 
+            <div class="product-card" style="border-color: rgba(16, 185, 129, 0.3);">
+                <div>
+                    <div class="card-header">
+                        <div class="product-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <div class="stock-tag">
+                            <span class="dot"></span> Stok: Tersedia
+                        </div>
+                    </div>
+                    <span class="product-type" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">Bisnis Partner</span>
+                    <h2 class="product-title">RESELLER AM PREM ACCESS</h2>
+                    <ul class="product-features">
+                        <li><i class="fa-solid fa-check"></i> Akses Pembuatan Akun Premium</li>
+                        <li><i class="fa-solid fa-check"></i> Cocok Untuk Dijual Kembali</li>
+                        <li><i class="fa-solid fa-check"></i> Full Bimbingan Sampai Bisa</li>
+                        <li><i class="fa-solid fa-check"></i> Modal Sekali Untung Berkali-kali</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="price-container">
+                        <div class="original-price">Rp 150.000</div>
+                        <div class="current-price">
+                            Rp 40.000
+                            <span class="save-badge">Hemat 73%</span>
+                        </div>
+                    </div>
+                    <button onclick="openOrderModal('RESELLER')" class="btn-card-buy">Pilih Akses Reseller</button>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Section Testimoni & Komentar -->
         <section class="reviews-section">
             <div class="reviews-header">
                 <h2><i class="fa-solid fa-comments" style="color: var(--accent-color);"></i> Kata Mereka</h2>
@@ -737,7 +762,6 @@
                 </div>
             </div>
 
-            <!-- Form Tulis Komentar -->
             <div class="comment-form">
                 <h3>Tulis Ulasan Kamu</h3>
                 <form id="reviewForm" onsubmit="addComment(event)">
@@ -746,6 +770,7 @@
                         <select id="productType" class="form-input" style="color: #a0aec0;" required>
                             <option value="AM PREM PRIVATE" selected>Variasi: AM PREM PRIVATE (10k)</option>
                             <option value="AM PREM SHARING">Variasi: AM PREM SHARING (5k)</option>
+                            <option value="RESELLER AM PREM ACCESS">Variasi: RESELLER AM PREM (40k)</option>
                         </select>
                     </div>
                     <div style="margin-bottom: 1rem;">
@@ -757,10 +782,8 @@
                 </form>
             </div>
 
-            <!-- List Komentar -->
             <div class="reviews-list" id="reviewsList">
 
-                <!-- Review 1 -->
                 <div class="review-card">
                     <div class="review-user">
                         <div class="user-info">
@@ -778,7 +801,6 @@
                     <span class="item-tag">Membeli: AM PREM PRIVATE</span>
                 </div>
 
-                <!-- Review 2 -->
                 <div class="review-card">
                     <div class="review-user">
                         <div class="user-info">
@@ -796,7 +818,6 @@
                     <span class="item-tag">Membeli: AM PREM SHARING</span>
                 </div>
 
-                <!-- Review 3 -->
                 <div class="review-card">
                     <div class="review-user">
                         <div class="user-info">
@@ -814,7 +835,6 @@
                     <span class="item-tag">Membeli: AM PREM PRIVATE</span>
                 </div>
 
-                <!-- Review 4 -->
                 <div class="review-card">
                     <div class="review-user">
                         <div class="user-info">
@@ -836,7 +856,6 @@
         </section>
     </main>
 
-    <!-- MODAL POPUP PEMBELIAN -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeOrderModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -850,6 +869,7 @@
                     <select id="modalPackage" class="form-input" onchange="toggleEmailInput()" required>
                         <option value="PRIVATE">AM PREM PRIVATE - Rp 10.000</option>
                         <option value="SHARING">AM PREM SHARING - Rp 5.000</option>
+                        <option value="RESELLER ACCESS">RESELLER AM PREM ACCESS - Rp 40.000</option>
                     </select>
                 </div>
 
@@ -865,20 +885,23 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Zalzz Store. All rights reserved.</p>
     </footer>
 
-    <!-- Script Logic Pop-Up Modal & WA Link -->
     <script>
-        const phoneSeller = "6283872878413";
+        const phoneSeller = "628812677529";
 
         function openOrderModal(defaultType = 'PRIVATE') {
             const modal = document.getElementById('orderModal');
             const select = document.getElementById('modalPackage');
             
-            select.value = defaultType;
+            if (defaultType === 'RESELLER') {
+                select.value = 'RESELLER ACCESS';
+            } else {
+                select.value = defaultType;
+            }
+            
             toggleEmailInput();
             
             modal.classList.add('active');
@@ -916,9 +939,12 @@
             if (packageType === 'PRIVATE') {
                 priceText = "Rp 10.000";
                 emailText = buyerEmail;
-            } else {
+            } else if (packageType === 'SHARING') {
                 priceText = "Rp 5.000";
-                emailText = ""; // Dikosongkan jika SHARING
+                emailText = ""; 
+            } else if (packageType === 'RESELLER ACCESS') {
+                priceText = "Rp 40.000";
+                emailText = ""; 
             }
 
             // Format Pesan Sesuai Permintaan
@@ -971,7 +997,7 @@
             alert('Ulasan kamu berhasil terkirim!');
         }
 
-        // Close modal when clicking outside content
+       // Close modal when clicking outside content
         window.onclick = function(event) {
             const modal = document.getElementById('orderModal');
             if (event.target === modal) {
@@ -981,4 +1007,3 @@
     </script>
 </body>
 </html>
-
